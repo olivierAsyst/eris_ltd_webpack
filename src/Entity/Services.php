@@ -4,8 +4,12 @@ namespace App\Entity;
 
 use App\Repository\ServicesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ServicesRepository::class)]
+#[Vich\Uploadable()]
 class Services
 {
     #[ORM\Id]
@@ -21,6 +25,10 @@ class Services
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageUrl = null;
+
+    #[Vich\UploadableField(mapping: 'services', fileNameProperty: 'imageUrl')]
+    #[Assert\Image()]
+    private ?File $image = null;
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
@@ -65,7 +73,17 @@ class Services
 
         return $this;
     }
+    public function getImage(): ?File
+    {
+        return $this->image;
+    }
 
+    public function setImage(?File $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
     public function getSlug(): ?string
     {
         return $this->slug;

@@ -2,33 +2,144 @@
 
 {% block title %}Nos Services{% endblock %}
 
-{% block body %}
-<section>
-  <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
-    <div class="space-y-4 md:space-y-8">
-      <div class="max-w-xl">
-        <h2 class="text-2xl font-semibold text-gray-900 sm:text-3xl">
-          Nos services
-        </h2>
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    .service-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .modal {
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .modal-content {
+        transition: transform 0.3s ease;
+    }
+    .modal.is-active .modal-content {
+        transform: translateY(0);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+</style>
+{% endblock %}
 
-        <p class="mt-4 text-gray-700">
-            Nous offrons divers services pour répondre à vos besoins
-        </p>
-      </div>
-      <div class="flex flex-wrap">
+{% block body %}
+<section class="py-12">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-gray-900 sm:text-4xl">
+        Nos services
+      </h2>
+      <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+        Découvrez notre gamme complète de services conçus pour répondre à vos besoins spécifiques
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for service in services %}
-        <a href="#" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-            <i class="las la-broom text-9xl text-green-700"></i>
-            <div class="flex flex-col justify-between p-4 leading-normal">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Gestion des déchets</h5>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Collecte, tri, recyclage et traitement des déchets ménagers, industriels et agricoles pour réduire la pollution.</p>
-            </div>
-        </a>
+        <div 
+            class="service-card bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg"
+            onclick="openModal('{{ service.name|escape('js') }}', '{{ service.description|escape('js') }}', '{{ vich_uploader_asset(service, 'image') }}')"
+        >
+          <div class="h-48 overflow-hidden">
+            <img 
+                src="{{ vich_uploader_asset(service, 'image') }}" 
+                alt="{{ service.name }}" 
+                class="w-full h-full object-cover"
+                loading="lazy"
+            >
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ service.name }}</h3>
+            <p class="text-gray-600">{{ service.description|slice(0, 100) ~ (service.description|length > 100 ? '...' : '') }}</p>
+            <button class="mt-4 text-green-600 font-medium hover:text-green-800 transition-colors">
+              Voir plus
+            </button>
+          </div>
+        </div>
       {% endfor %}
-      </div>
-      </div>
     </div>
   </div>
 </section>
 
+<!-- Modal -->
+<div id="serviceModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 opacity-0 invisible transition-all duration-300">
+  <div class="modal-content bg-white rounded-lg shadow-none max-w-4xl w-full mx-4 transform translate-y-10 transition-shadow duration-300">
+    <div class="relative">
+      <button 
+          onclick="closeModal()" 
+          class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 z-10"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2">
+        <div class="h-64 lg:h-full">
+          <img 
+              id="modalImage" 
+              src="" 
+              alt="" 
+              class="w-full h-full object-cover"
+          >
+        </div>
+        
+        <div class="p-8">
+          <h3 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-4"></h3>
+          <p id="modalDescription" class="text-gray-600 leading-relaxed"></p>
+          
+          <div class="mt-8">
+            <button 
+                onclick="closeModal()" 
+                class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+function openModal(title, description, imageUrl) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalDescription').textContent = description;
+    document.getElementById('modalImage').src = imageUrl;
+    
+    const modal = document.getElementById('serviceModal');
+    modal.classList.remove('invisible', 'opacity-0');
+    modal.classList.add('visible', 'opacity-100', 'is-active'); // Ajout de la classe is-active
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    const modal = document.getElementById('serviceModal');
+    modal.classList.remove('visible', 'opacity-100', 'is-active'); // Retrait de la classe is-active
+    modal.classList.add('invisible', 'opacity-0');
+    document.body.style.overflow = 'auto';
+}
+
+    // Close modal when clicking outside content
+    document.getElementById('serviceModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+</script>
 {% endblock %}

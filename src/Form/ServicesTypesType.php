@@ -8,6 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\Validator\Constraints\Image;
 
 class ServicesTypesType extends AbstractType
 {
@@ -27,7 +29,15 @@ class ServicesTypesType extends AbstractType
                     'rows' => 4
                 ]
             ])
-            // ->add('imageUrl')
+            ->add('image', VichImageType::class, [
+            'required' => false,
+            'constraints' => [
+                new Image([
+                    'maxSize' => '5M',
+                    'mimeTypes' => ['image/jpeg', 'image/png', 'image/webp'],
+                ]),
+                ],
+            ])
         ;
     }
 
