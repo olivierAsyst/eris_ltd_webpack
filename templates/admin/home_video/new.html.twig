@@ -1,0 +1,77 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Ajouter la vidéo{% endblock %}
+
+{% block in_body %}
+<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
+    <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+        <!-- Header -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+            <div class="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-700">
+                <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Ajouter une vidéo</h1>
+                <a href="{{ path('admin.video.index') }}" class="text-sm font-medium text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300">
+                    ← Retour à la liste
+                </a>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+            {{ form_start(form, {'attr': {'class': 'p-6 space-y-6'}}) }}
+                <div class="grid gap-6 mb-6 md:grid-cols-1">
+                    <!-- Name Field -->
+                    <div>
+                        {{ form_label(form.name, 'Nom de la vidéo', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500'}}) }}
+                        {{ form_errors(form.name) }}
+                    </div>
+
+                    <!-- Video Upload Field -->
+                    <div>
+                        {{ form_label(form.video, 'Fichier vidéo', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        <div class="flex items-center justify-center w-full">
+                            <label for="video_upload" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                        <span class="font-semibold">Cliquez pour uploader</span> ou glissez-déposez
+                                    </p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">MP4, AVI (max. 20MB)</p>
+                                </div>
+                                {{ form_widget(form.video, {'attr': {'id': 'video_upload'}}) }}
+                            </label>
+                        </div>
+                        {{ form_errors(form.video) }}
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Format requis : .mp4 ou .avi</p>
+                    </div>
+                </div>
+
+                <!-- CSRF Protection (inclus automatiquement par form_start) -->
+                <!-- Le token CSRF est déjà géré par Symfony dans form_start -->
+
+                <!-- Submit Button -->
+                <div class="flex justify-end space-x-4">
+                    <a href="{{ path('admin.video.index') }}" class="px-5 py-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        Annuler
+                    </a>
+                    <button type="submit" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                        Enregistrer la vidéo
+                    </button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</section>
+
+<!-- File upload preview script -->
+<script>
+    document.getElementById('{{ form.video.vars.id }}').addEventListener('change', function(e) {
+        const fileName = e.target.files[0]?.name || 'Aucun fichier sélectionné';
+        const helpText = document.getElementById('file_input_help');
+        helpText.textContent = `Fichier sélectionné : ${fileName}`;
+        helpText.classList.add('text-green-600', 'dark:text-green-400');
+    });
+</script>
+{% endblock %}

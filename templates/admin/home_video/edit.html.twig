@@ -1,0 +1,93 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Modifier la vidéo{% endblock %}
+
+{% block in_body %}
+<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
+    <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+        <!-- Header -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+            <div class="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-700">
+                <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Modifier la vidéo</h1>
+                <a href="{{ path('admin.video.index') }}" class="text-sm font-medium text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300">
+                    ← Retour à la liste
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Form -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden mb-6">
+            {{ form_start(form, {'attr': {'class': 'p-6 space-y-6'}}) }}
+                {# Ajoutez ceci si le token CSRF n'est pas généré automatiquement #}
+                {% if form._token is defined %}
+                    {{ form_row(form._token) }}
+                {% endif %}
+
+                <!-- Vos champs de formulaire existants... -->
+                <div class="grid gap-6 mb-6 md:grid-cols-1">
+                    <!-- Name Field -->
+                    <div>
+                        {{ form_label(form.name, 'Nom de la vidéo', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.name, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500'}}) }}
+                    </div>
+
+                    <!-- Video Field -->
+                    <div>
+                        {{ form_label(form.video, 'Fichier vidéo', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.video, {'attr': {'class': 'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'}}) }}
+                        {{ form_errors(form.video) }}
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <!-- Delete Form -->
+                    <form method="post" action="{{ path('admin.video.delete', {'id': form.vars.data.id}) }}" onsubmit="return confirm('Êtes-vous sûr ?')" class="inline">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ form.vars.data.id) }}">
+                        <button type="submit" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                            Supprimer
+                        </button>
+                    </form>
+
+                    <!-- Submit Buttons -->
+                    <div class="flex space-x-4">
+                        <a href="{{ path('admin.video.index') }}" class="px-5 py-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            Annuler
+                        </a>
+                        <button type="submit" class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-900">
+                            Enregistrer
+                        </button>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('{{ form.video.vars.id }}').addEventListener('change', function(e) {
+        const fileName = e.target.files[0]?.name || 'Aucun fichier sélectionné';
+        const helpText = document.getElementById('file_input_help');
+        helpText.textContent = `Nouveau fichier : ${fileName}`;
+        helpText.classList.add('text-green-600', 'dark:text-green-400');
+        helpText.classList.remove('text-gray-500', 'dark:text-gray-300');
+    });
+</script>
+{% endblock %}
+
+
+
+
+
+{# {% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Modifier la video{% endblock %}
+
+{% block in_body %}
+<h1>Modifier la video</h1>
+
+    {{ include('admin/home_video/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin.video.index') }}">Retour a la liste</a>
+
+    {{ include('admin/home_video/_delete_form.html.twig') }}
+{% endblock %} #}

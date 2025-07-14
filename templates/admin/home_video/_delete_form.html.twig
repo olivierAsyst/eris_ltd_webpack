@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('admin.video.delete', {'id': home_video.id}) }}" onsubmit="return confirm('Vous etes sur de supprimer ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ home_video.id) }}">
+    <button class="btn">Supprimer</button>
+</form>

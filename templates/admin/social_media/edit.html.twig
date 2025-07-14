@@ -1,0 +1,75 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Modifier un réseau social{% endblock %}
+
+{% block in_body %}
+<div class="p-4 sm:p-6">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Modifier le réseau social</h1>
+        <div class="flex space-x-2 mt-4 md:mt-0">
+            <a href="{{ path('admin.social.index') }}" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                Retour à la liste
+            </a>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-6">
+        {{ form_start(form, {'attr': {'class': 'space-y-4'}}) }}
+        {{ form_errors(form) }}
+        
+        {# Protection CSRF explicite #}
+        {{ form_widget(form._token) }}
+        
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+                {{ form_label(form.name, 'Nom du réseau', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500'}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+            
+            <div>
+                {{ form_label(form.lien, 'Lien URL', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                {{ form_widget(form.lien, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500'}}) }}
+                {{ form_errors(form.lien) }}
+            </div>
+        </div>
+        
+        <div>
+            {{ form_label(form.image, 'Icône/Logo', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            
+            {# Aperçu de l'image actuelle #}
+            {% if social_media.image %}
+            <div class="mb-4">
+                <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Icône actuelle :</p>
+                <div class="flex items-center gap-4">
+                    <img src="{{ vich_uploader_asset(social_media, 'image') }}" alt="Icône actuelle" class="h-10 w-10 object-contain">
+                    <span class="text-sm text-gray-500 dark:text-gray-400">{{ social_media.imageName }}</span>
+                </div>
+            </div>
+            {% endif %}
+            
+            {{ form_widget(form.image, {'attr': {'class': 'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'}}) }}
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Format: PNG, JPG ou SVG (Laissez vide pour conserver l'icône actuelle)</p>
+            {{ form_errors(form.image) }}
+        </div>
+        
+        <div class="flex flex-col-reverse sm:flex-row justify-between items-center pt-4 gap-4">
+            <div class="w-full sm:w-auto">
+                {{ include('admin/social_media/_delete_form.html.twig', {'social_media': social_media}) }}
+            </div>
+            
+            <div class="flex gap-4 w-full sm:w-auto">
+                <a href="{{ path('admin.social.index') }}" class="w-full sm:w-auto text-center text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">
+                    Annuler
+                </a>
+                <button type="submit" class="w-full sm:w-auto text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    {{ button_label|default('Enregistrer') }}
+                </button>
+            </div>
+        </div>
+        
+        {# On utilise render_rest: false car on a déjà affiché le token CSRF #}
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+</div>
+{% endblock %}

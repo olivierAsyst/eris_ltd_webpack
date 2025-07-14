@@ -1,0 +1,60 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Gestion des réseaux sociaux{% endblock %}
+
+{% block in_body %}
+<div class="p-4 sm:p-6">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Gestion des réseaux sociaux</h1>
+        <a href="{{ path('admin.social.new') }}" class="mt-4 md:mt-0 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
+            Ajouter un nouveau réseau
+        </a>
+    </div>
+
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Nom</th>
+                    <th scope="col" class="px-6 py-3">Lien</th>
+                    <th scope="col" class="px-6 py-3">Icône</th>
+                    <th scope="col" class="px-6 py-3 text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for social_media in social_media %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ social_media.name }}
+                    </td>
+                    <td class="px-6 py-4">
+                        <a href="{{ social_media.lien }}" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">
+                            {{ social_media.lien }}
+                        </a>
+                    </td>
+                    <td class="px-6 py-4">
+                        <i class="{{ social_media.icon }} text-xl"></i>
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex justify-end space-x-2">
+                            <a href="{{ path('admin.social.show', {'id': social_media.id}) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                Voir
+                            </a>
+                            <a href="{{ path('admin.social.edit', {'id': social_media.id}) }}" class="font-medium text-green-600 dark:text-green-500 hover:underline">
+                                Modifier
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td colspan="4" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                        Aucun réseau social trouvé
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

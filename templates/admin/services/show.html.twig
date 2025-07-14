@@ -1,0 +1,24 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Service ~ {{ service.name }}{% endblock %}
+
+{% block in_body %}
+          <div class="text-center text-gray-500 dark:text-gray-400">
+              {# <img class="mx-auto mb-4 w-36 h-36 rounded-full" src="{{ vich_uploader_asset(member, 'image') }}" alt="Bonnie Avatar"> #}
+              <h3 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  <a href="#" class="bg-gradient-to-r from-green-900 to-green-600 text-transparent bg-clip-text">{{ service.name }}</a>
+              </h3>
+              <p>{{ service.description }}</p>
+              <ul>
+                <li class="flex justify-center mt-4 space-x-4">
+                    <a class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800" href="{{ path('admin.services.update', {'id': service.id}) }}">Modifier</a>
+                    {{ include('admin/services/_delete_form.html.twig') }}
+                </li>
+              </ul>
+              <ul>
+                <li>
+                    <a class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800 w-auto" href="{{ path('admin.services.index') }}">Retour a la liste</a>
+                </li>
+              </ul>
+          </div>
+{% endblock %}

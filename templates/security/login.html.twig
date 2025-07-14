@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter!{% endblock %}
+
+{% block body %}
+    {# <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="inputEmail">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+        <label for="inputPassword">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+        <input type="hidden" name="_csrf_token"
+            value="{{ csrf_token('authenticate') }}"
+        >
+
+        <button class="btn btn-lg btn-primary" type="submit">
+            Sign in
+        </button>
+    </form>  #}
+
+<!--
+  Heads up! 👋
+
+  Plugins:
+    - @tailwindcss/forms
+-->
+
+<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-lg">
+    {# <img src="images/eris-logos.png" class="w-20" alt=""> #}
+    <h1 class="text-center text-2xl font-bold text-green-600 sm:text-3xl">Administration</h1>
+
+    <p class="mx-auto mt-4 max-w-md text-center text-gray-500">
+      Pour gérer certaines tâches logiques, il est nécessaire de se connecter en tant qu'administrateur.
+    </p>
+
+    <form method="post" class="mt-6 mb-0 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+        {% if error %}
+            <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+                <span class="font-medium">Erreur !</span> {{ error.messageKey|trans(error.messageData, 'security') }}.
+            </div>
+            </div>
+            {# <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div> #}
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+      <p class="text-center text-lg font-medium">Connectez-vous à votre compte</p>
+      <div>
+        <label for="email" class="sr-only">Email</label>
+        <div class="relative">
+          <input type="email" value="{{ last_username }}" class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs" placeholder="Adresse Mail" name="email" id="inputEmail" autocomplete="email" required autofocus/>
+          <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-gray-400" fill="none" viewBox="0 0 24 24"stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div>
+        <label for="password" class="sr-only">Mot de passe</label>
+        <div class="relative">
+          <input type="password" class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs" placeholder="Mot de passe" name="password" id="inputPassword" autocomplete="current-password" required/>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+          <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+      <button type="submit" class="block w-full rounded-lg bg-green-600 px-5 py-3 text-sm font-medium text-white cursor-pointer">
+        Connexion
+      </button>
+      <p class="text-center text-sm text-gray-500">
+        Vous
+        <a class="underline" href="#">inscrire</a>
+      </p>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez nous!{% endblock %}
+
+{% block body %}
+    <section class="py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="md:flex gap-x-24 clear-left md:mb-16 mb-10">
+            <div class=" md:mb-0 mb-4">
+                <h2 class="text-black font-manrope text-4xl font-semibold leading-10 mb-5 md:text-left text-center">Contact</h2>
+                <p class="text-gray-600 text-lg font-normal leading-7 mb-7 md:text-left text-center">Que vous ayez une préoccupation ou que vous souhaitiez simplement dire bonjour, nous sommes là pour faciliter la communication avec vous.</p>
+                <div class="flex md:items-center md:justify-start justify-center">
+                    <button class="w-36 h-12 rounded-full bg-green-600 transition-all duration-700 hover:bg-green-800 shadow text-white text-center text-base font-semibold leading-6">Contact</button>
+                </div>
+            </div>
+            <div class="border-l-2 md:border-green-600 border-white px-10 py-6">
+                <div class="mb-8">
+                    <h6 class="text-gray-500 text-sm font-medium leading-5 pb-3 md:text-start text-center">Addresse Email</h6>
+                    <h3 class="text-black text-xl font-semibold leading-8 md:text-start text-center">erisrdc.sarl@gmail.com</h3>
+                </div>
+                <div>
+                    <h6 class="text-gray-500 text-sm font-medium leading-5 pb-3 md:text-start text-center">Numero de telephone</h6>
+                    <h3 class="text-black text-xl font-semibold leading-8 md:text-start text-center">+243 978 113 552</h3>
+                </div>
+            </div>
+        </div>
+        <div class="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-8">
+            <div class="h-96 relative flex justify-center">
+                <div class="w-full h-full absolute bg-gradient-to-t from-gray-800/50 to-gray-600/50"></div>
+                <img src="images/goma.jpg" alt="Goma cikudu" class="w-full h-full object-cover">
+                <div class="absolute bottom-0 mb-6 text-center px-6">
+                    <h5 class="text-white text-lg font-semibold leading-7 mb-2">Goma</h5>
+                    <p class="text-white text-base font-medium leading-6">142 AV. FAGOP, <br>Q. Kyeshero</p>
+                </div>
+            </div>
+            <div class="h-96 relative flex justify-center">
+                <div class="w-full h-full absolute bg-gradient-to-t from-gray-800/50 to-gray-600/50"></div>
+                <img src="images/bukavu.jpg" alt="bukavu place" class="w-full h-full  object-cover">
+                <div class="absolute bottom-0 mb-6 text-center px-6">
+                    <h5 class="text-white text-lg font-semibold leading-7 mb-2">Bukavu</h5>
+                    <p class="text-white text-base font-medium leading-6">101 Unter den Linden, Mitte <br>District, Berlin</p>
+                </div>
+            </div>
+            </div>
+        </div>
+      </div>
+    </section>
+                                            
+{% endblock %}
