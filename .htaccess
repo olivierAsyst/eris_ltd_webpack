@@ -8,9 +8,6 @@
   RewriteEngine on
   RewriteOptions inherit
 
-  RewriteEngine On
-  RewriteRule ^(.*)$ http://localhost:PORT/$1 [P]
-
   RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/.+$
   RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
   
