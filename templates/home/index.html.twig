@@ -189,7 +189,7 @@
         <div class="bg-green-800/50 rounded-xl p-6 flex items-center gap-4 backdrop-blur-sm">
           <i class="las la-calendar-alt text-4xl"></i>
           <div>
-            <div class="text-4xl font-bold">{{ chiffre.year }}</div>
+            <div class="text-4xl font-bold">{{ chiffre.year|default('0') }}</div>
             <p class="text-lg text-green-100">Année de création</p>
           </div>
         </div>
@@ -197,7 +197,7 @@
         <div class="bg-green-800/50 rounded-xl p-6 flex items-center gap-4 backdrop-blur-sm">
           <i class="las la-project-diagram text-4xl"></i>
           <div>
-            <div class="text-4xl font-bold">{{ chiffre.projects }}</div>
+            <div class="text-4xl font-bold">{{ chiffre.projects|default('0') }}</div>
             <p class="text-lg text-green-100">Projets réalisés</p>
           </div>
         </div>
@@ -205,7 +205,7 @@
         <div class="bg-green-800/50 rounded-xl p-6 flex items-center gap-4 backdrop-blur-sm">
           <i class="las la-user-check text-4xl"></i>
           <div>
-            <div class="text-4xl font-bold">+ {{ chiffre.experts }}</div>
+            <div class="text-4xl font-bold">+ {{ chiffre.experts|default('0') }}</div>
             <p class="text-lg text-green-100">Experts techniques</p>
           </div>
         </div>
@@ -213,7 +213,7 @@
         <div class="bg-green-800/50 rounded-xl p-6 flex items-center gap-4 backdrop-blur-sm">
           <i class="lar la-handshake text-4xl"></i>
           <div>
-            <div class="text-4xl font-bold">+ {{ chiffre.partner }}</div>
+            <div class="text-4xl font-bold">+ {{ chiffre.partner|default('0') }}</div>
             <p class="text-lg text-green-100">Partenaires stratégiques</p>
           </div>
         </div>
