@@ -1,0 +1,35 @@
+{# templates/admin/ournumber/_form.html.twig #}
+
+{{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            {{ form_label(form.year, 'Année', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.year, {'attr': {'class': 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500'}}) }}
+            {{ form_errors(form.year) }}
+        </div>
+
+        <div>
+            {{ form_label(form.projects, 'Projets réalisés', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.projects, {'attr': {'class': 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500'}}) }}
+            {{ form_errors(form.projects) }}
+        </div>
+
+        <div>
+            {{ form_label(form.experts, 'Experts', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.experts, {'attr': {'class': 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500'}}) }}
+            {{ form_errors(form.experts) }}
+        </div>
+
+        <div>
+            {{ form_label(form.partner, 'Partenaires', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+            {{ form_widget(form.partner, {'attr': {'class': 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500'}}) }}
+            {{ form_errors(form.partner) }}
+        </div>
+    </div>
+
+    <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+        <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors">
+            {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+{{ form_end(form) }}

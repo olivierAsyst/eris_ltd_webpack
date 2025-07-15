@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Repository\HomeVideoRepository;
 use App\Repository\ImageGaleryRepository;
 use App\Repository\MemberRepository;
+use App\Repository\OurnumberRepository;
 use App\Repository\PartnerRepository;
+use App\Repository\RealisationRepository;
 use App\Repository\SocialMediaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +23,9 @@ final class HomeController extends AbstractController
         ImageGaleryRepository $imageGaleryRepository,
         PartnerRepository $partnerRepository,
         SocialMediaRepository $socialMediaRepository,
-        HomeVideoRepository $homeVideoRepository
+        HomeVideoRepository $homeVideoRepository,
+        RealisationRepository $realisationRepository,
+        OurnumberRepository $ournumberRepository
          ): Response
     {
 
@@ -30,6 +34,8 @@ final class HomeController extends AbstractController
         $partner = $partnerRepository->findAll();
         $members = $memberRepository->findAll();
         $images = $imageGaleryRepository->findAll();
+        $realisations = $realisationRepository->findLastThreeRealisations();
+        $chiffres = $ournumberRepository->findLatestNumber();
 
         return $this->render('home/index.html.twig', [
             'members' => $members,
@@ -37,6 +43,8 @@ final class HomeController extends AbstractController
             'partners' => $partner,
             'socials' => $social,
             'video' => $video,
+            'realisations' => $realisations,
+            'chiffre' => $chiffres,
             'controller_name' => 'Acceuil | ERIS'
 
         ]);

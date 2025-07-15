@@ -13,11 +13,11 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route(path:"/admin", name:"admin.services.")]
+#[Route(path:"/services", name:"admin.services.")]
 #[IsGranted('ROLE_USER')]
 final class ServicesController extends AbstractController
 {
-    #[Route('/services', name: 'index')]
+    #[Route(name: 'index', methods: ['GET'])]
     public function index(ServicesRepository $repository): Response
     {
         $services = $repository->findAll();
@@ -27,7 +27,7 @@ final class ServicesController extends AbstractController
         ]);
     }
 
-    #[Route('/services/create', name: 'create')]
+    #[Route('/create', name: 'create')]
     public function create(Request $request, EntityManagerInterface $en): Response
     {
         $service = new Services();
@@ -48,7 +48,7 @@ final class ServicesController extends AbstractController
         ]);
     }
 
-    #[Route('/services/edit/{id}', name: 'update', methods: ['GET', 'POST'], requirements: ['id'=>Requirement::DIGITS])]
+    #[Route('/edit/{id}', name: 'update', methods: ['GET', 'POST'], requirements: ['id'=>Requirement::DIGITS])]
     public function edit(Services $service, Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(ServicesTypesType::class, $service);

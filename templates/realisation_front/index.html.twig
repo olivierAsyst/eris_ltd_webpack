@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ controller_name }}!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+<style>
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px); /* Flou derrière la modal */
+        z-index: 40;
+    }
+    .modal-container {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-content {
+        background: white;
+        border-radius: 0.5rem;
+        max-width: 90vw;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <h1 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Nos réalisations</h1>
+            <p class="mt-4 text-xl text-gray-600">Découvrez nos projets les plus récents</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for realisation in realisations %}
+                <div class="realisation-card bg-white rounded-lg overflow-hidden shadow-md cursor-pointer"
+                     data-modal-target="realisation-modal-{{ realisation.id }}"
+                     onclick="openModal('realisation-modal-{{ realisation.id }}')">
+                    <div class="h-48 overflow-hidden">
+                        {% if realisation.imageUrl %}
+                            <img src="{{ vich_uploader_asset(realisation, 'image') }}" 
+                                 alt="{{ realisation.name }}"
+                                 class="w-full h-full object-cover">
+                        {% else %}
+                            <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                                <span class="text-gray-500">Pas d'image</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ realisation.name }}</h3>
+                        <p class="text-gray-600 description-truncate">{{ realisation.description }}</p>
+                        <button class="mt-4 text-green-600 font-medium hover:text-green-800 transition-colors">
+                            Voir plus →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div id="realisation-modal-{{ realisation.id }}" class="fixed inset-0 z-50 hidden">
+                    <!-- Overlay avec flou -->
+                    <div class="modal-overlay" onclick="closeModal('realisation-modal-{{ realisation.id }}')"></div>
+                    
+                    <!-- Contenu de la modal -->
+                    <div class="modal-container">
+                        <div class="modal-content w-full max-w-2xl mx-4">
+                            <div class="bg-white p-6 rounded-lg">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                                    {{ realisation.name }}
+                                </h3>
+                                
+                                {% if realisation.imageUrl %}
+                                    <img src="{{ vich_uploader_asset(realisation, 'image') }}" 
+                                        alt="{{ realisation.name }}"
+                                        class="modal-image mb-6">
+                                {% endif %}
+                                
+                                <p class="text-gray-700 whitespace-pre-line">{{ realisation.description }}</p>
+                                
+                                <div class="mt-6 text-right">
+                                    <button onclick="closeModal('realisation-modal-{{ realisation.id }}')"
+                                            class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition">
+                                        Fermer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    }
+
+    // Close modal when clicking outside of modal content
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('fixed') && event.target.classList.contains('inset-0')) {
+            const modalId = event.target.closest('.fixed.inset-0').id;
+            closeModal(modalId);
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            const modals = document.querySelectorAll('[id^="realisation-modal-"]');
+            modals.forEach(modal => {
+                if (!modal.classList.contains('hidden')) {
+                    closeModal(modal.id);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

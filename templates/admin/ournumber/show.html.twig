@@ -1,0 +1,70 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Admin | Nos chiffres{% endblock %}
+
+{% block in_body %}
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800">Détails des chiffres</h1>
+                <div class="flex space-x-4">
+                    <a href="{{ path('admin.numbers.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                        </svg>
+                        Retour à la liste
+                    </a>
+                    <a href="{{ path('admin.numbers.edit', {'id': ournumber.id}) }}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                        </svg>
+                        Modifier
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-md rounded-lg overflow-hidden mb-8">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">ID</th>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ ournumber.id }}</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">Année de création</th>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ ournumber.year }}</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">Projets</th>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ ournumber.projects }}</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">Experts</th>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ ournumber.experts }}</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">Partenaires</th>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ ournumber.partner }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-red-800">Zone dangereuse</h3>
+                        <div class="mt-2">
+                            {{ include('admin/ournumber/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
