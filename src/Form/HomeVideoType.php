@@ -15,7 +15,6 @@ class HomeVideoType extends AbstractType
         $builder
             ->add('name')
             ->add('video', VichFileType::class, [
-                'required' => false,
                 'label' => 'Video (MP4, AVI)',
                 'constraints' => [
                     new \Symfony\Component\Validator\Constraints\File([

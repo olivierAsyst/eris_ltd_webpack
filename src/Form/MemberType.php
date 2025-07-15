@@ -16,6 +16,9 @@ class MemberType extends AbstractType
         $builder
             ->add('fullName')
             ->add('fonction')
+            ->add('facebookLink')
+            ->add('xlink')
+            ->add('linkedinlink')
             ->add('image', VichImageType::class, [
             'required' => false,
             'constraints' => [

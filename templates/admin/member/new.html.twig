@@ -25,6 +25,23 @@
                         {{ form_errors(form.fonction, {'attr': {'class': 'text-red-500 text-sm'}}) }}
                     </div>
                 </div>
+                <div class="grid gap-2 mb-4 sm:grid-cols-3">
+                    <div>
+                        {{ form_label(form.facebookLink, 'Lien facebook', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.facebookLink, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
+                        {{ form_errors(form.facebookLink, {'attr': {'class': 'text-red-500 text-sm'}}) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.xlink, 'Lien X', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.xlink, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
+                        {{ form_errors(form.xlink, {'attr': {'class': 'text-red-500 text-sm'}}) }}
+                    </div>
+                   <div>
+                        {{ form_label(form.linkedinlink, 'Lien LinkeDin', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                        {{ form_widget(form.linkedinlink, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
+                        {{ form_errors(form.linkedinlink, {'attr': {'class': 'text-red-500 text-sm'}}) }}
+                    </div>
+                </div>
                 <div class="mb-4">
                     <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</span>
                     <div class="flex justify-center items-center w-full">

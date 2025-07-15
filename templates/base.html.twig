@@ -14,13 +14,13 @@
         {# {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %} #}
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+            {# <link rel="stylesheet" href="{{ asset('styles/app.css') }}"> #}
         {% endblock %}
 
         {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-            {{ encore_entry_script_tags('app') }}
+            {# {{ encore_entry_script_tags('app') }} #}
         {% endblock %}
     </head>
     <body>
@@ -28,7 +28,6 @@
         {% block body %}{% endblock %}
     {% include "_partials/_footer.html.twig" %}
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-    {# <script src="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/js/pagedone.js"></script> #}
-    {# <script src="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.js"></script> #}
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.js"></script>
     </body>
 </html>

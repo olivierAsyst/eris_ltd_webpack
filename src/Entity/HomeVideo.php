@@ -24,17 +24,7 @@ class HomeVideo
     private ?string $videoUrl = null;
 
     #[Vich\UploadableField(mapping: 'home_video', fileNameProperty: 'videoUrl')]
-    #[Assert\File(
-        maxSize: '20M',
-        mimeTypes: [
-            'video/mp4',
-            'video/x-msvideo',
-            'video/x-flv',
-            'video/quicktime',
-            'video/x-matroska',
-        ],
-        mimeTypesMessage: 'Entrer un fichier video.'
-    )]
+    #[Assert\File]
     private ?File $video = null;
 
     public function getId(): ?int

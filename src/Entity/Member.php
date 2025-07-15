@@ -30,6 +30,15 @@ class Member
     #[Assert\Image()]
     private ?File $image = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $xlink = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $linkedinlink = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $facebookLink = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,6 +87,42 @@ class Member
     public function setImage(?File $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getXlink(): ?string
+    {
+        return $this->xlink;
+    }
+
+    public function setXlink(?string $xlink): static
+    {
+        $this->xlink = $xlink;
+
+        return $this;
+    }
+
+    public function getLinkedinlink(): ?string
+    {
+        return $this->linkedinlink;
+    }
+
+    public function setLinkedinlink(?string $linkedinlink): static
+    {
+        $this->linkedinlink = $linkedinlink;
+
+        return $this;
+    }
+
+    public function getFacebookLink(): ?string
+    {
+        return $this->facebookLink;
+    }
+
+    public function setFacebookLink(?string $facebookLink): static
+    {
+        $this->facebookLink = $facebookLink;
 
         return $this;
     }

@@ -2,6 +2,8 @@
 <style>
     /* Animation du header */
     .header {
+        position: relative;
+        z-index: 50;
         transition: all 0.3s ease;
         box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
         background-color: rgba(255, 255, 255, 0.98);
@@ -78,10 +80,10 @@
             Galerie
           </a>
           <a href="{{ path('app_about') }}" class="nav-link text-gray-800 font-medium hover:text-emerald-700 px-3 py-2">
-            À propos
+            Contact
           </a>
           <a href="{{ path('app_contact') }}" class="nav-link text-gray-800 font-medium hover:text-emerald-700 px-3 py-2">
-            Contact
+            À propos
           </a>
         </nav>
 

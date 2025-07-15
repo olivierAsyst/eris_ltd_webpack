@@ -10,6 +10,7 @@ framework:
         cookie_samesite: lax
     csrf_protection:
         enabled: true
+    error_controller: 'error_controller::show'
 
     #esi: true
     #fragments: true
