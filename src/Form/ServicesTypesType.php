@@ -33,7 +33,7 @@ class ServicesTypesType extends AbstractType
             'required' => false,
             'constraints' => [
                 new Image([
-                    'maxSize' => '5M',
+                    'maxSize' => '10M',
                     'mimeTypes' => ['image/jpeg', 'image/png', 'image/webp'],
                 ]),
                 ],
