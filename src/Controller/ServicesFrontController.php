@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class ServicesFrontController extends AbstractController{
-    #[Route('/services', name: 'app_services_front')]
+    #[Route('/service', name: 'app_services_front')]
     public function index(ServicesRepository $servicesRepository): Response
     {
         return $this->render('services_front/index.html.twig', [
