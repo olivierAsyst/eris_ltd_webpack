@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Member;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
@@ -16,6 +17,15 @@ class MemberType extends AbstractType
         $builder
             ->add('fullName')
             ->add('fonction')
+            ->add('description', TextareaType::class, [
+                'required' => false,
+                'constraints' => [
+                    new \Symfony\Component\Validator\Constraints\Length([
+                        'max' => 120,
+                        'maxMessage' => 'La description ne doit pas dépasser {{ limit }} caractères.',
+                    ]),
+                ],
+            ])
             ->add('facebookLink')
             ->add('xlink')
             ->add('linkedinlink')
